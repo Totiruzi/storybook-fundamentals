@@ -7,7 +7,7 @@
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-3d9f0945d4aee910549f15414861a510",
+            "id": "component-AppComponent-5ee3d25443ee70aa63500f4f6348d4f1",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -28,7 +28,7 @@
             "propertiesClass": [
                 {
                     "name": "title",
-                    "defaultValue": "'intro-storybook-angular-template'",
+                    "defaultValue": "'intro-storybook-angular-template with Chris'",
                     "type": "string",
                     "optional": false,
                     "description": "",
@@ -41,7 +41,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.css']\n})\nexport class AppComponent {\n  title = 'intro-storybook-angular-template';\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.css']\n})\nexport class AppComponent {\n  title = 'intro-storybook-angular-template with Chris';\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -255,6 +255,54 @@
                     "styleUrl": "./page.css"
                 }
             ],
+            "stylesData": ""
+        },
+        {
+            "name": "TaskComponent",
+            "id": "component-TaskComponent-147c8cb0475798f332402130b688824b",
+            "file": "src/app/components/task.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-task",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<div class=\"list-item\">\n  <input type=\"text\" [value]=\"task.title\"  readonly=\"true\"/>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "task",
+                    "line": 14,
+                    "type": "any"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onArchivedTask",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 20,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onPinTask",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 17,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\n\n\n@Component({\n  selector: 'app-task',\n  template: `\n    <div class=\"list-item\">\n      <input type=\"text\" [value]=\"task.title\"  readonly=\"true\"/>\n    </div>\n  `\n})\n\nexport class TaskComponent {\n  @Input() task: any;\n\n  // tslint:disable-next-line:no-output-on-prefix\n  @Output() onPinTask = new EventEmitter<Event>();\n\n  // tslint:disable-next-line:no-output-on-prefix\n  @Output() onArchivedTask = new EventEmitter<Event>();\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
             "stylesData": ""
         }
     ],
@@ -557,6 +605,15 @@
                 "name": "AppComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/task.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TaskComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
