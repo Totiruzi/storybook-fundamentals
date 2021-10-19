@@ -1,6 +1,40 @@
 {
     "pipes": [],
-    "interfaces": [],
+    "interfaces": [
+        {
+            "name": "Task",
+            "id": "interface-Task-ccb132c6b7036af26ef3c708aa49b084",
+            "file": "src/app/model/task.model.ts",
+            "type": "interface",
+            "sourceCode": "export interface Task {\n  id: string;\n  title: string;\n  state: string;\n}\n",
+            "properties": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                },
+                {
+                    "name": "state",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "title",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        }
+    ],
     "injectables": [],
     "classes": [],
     "directives": [],
@@ -259,7 +293,7 @@
         },
         {
             "name": "TaskComponent",
-            "id": "component-TaskComponent-147c8cb0475798f332402130b688824b",
+            "id": "component-TaskComponent-be160569d8d207e1042d8f3e52aa5132",
             "file": "src/app/components/task.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -269,38 +303,83 @@
             "selector": "app-task",
             "styleUrls": [],
             "styles": [],
-            "template": "<div class=\"list-item\">\n  <input type=\"text\" [value]=\"task.title\"  readonly=\"true\"/>\n</div>\n",
+            "template": "<div class=\"list-item {{ task?.state }}\">\n  <label class=\"checkbox\">\n    <input\n      type=\"checkbox\"\n      [defaultChecked]=\"task?.state === 'TASK_ARCHIVED'\"\n      disabled=\"true\"\n      name=\"checked\"\n    />\n    <span class=\"checkbox-custom\" (click)=\"onArchive(task.id)\"></span>\n  </label>\n  <div class=\"title\">\n    <input\n      type=\"text\"\n      [value]=\"task?.title\"\n      readonly=\"true\"\n      placeholder=\"Input title\"\n    />\n  </div>\n  <div class=\"actions\">\n    <a *ngIf=\"task?.state !== 'TASK_ARCHIVED'\" (click)=\"onPin(task.id)\">\n      <span class=\"icon-star\"></span>\n    </a>\n  </div>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
                 {
                     "name": "task",
-                    "line": 14,
-                    "type": "any"
+                    "line": 36,
+                    "type": "Task"
                 }
             ],
             "outputsClass": [
                 {
                     "name": "onArchivedTask",
                     "defaultValue": "new EventEmitter<Event>()",
-                    "line": 20,
+                    "line": 42,
                     "type": "EventEmitter"
                 },
                 {
                     "name": "onPinTask",
                     "defaultValue": "new EventEmitter<Event>()",
-                    "line": 17,
+                    "line": 39,
                     "type": "EventEmitter"
                 }
             ],
             "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "onArchived",
+                    "args": [
+                        {
+                            "name": "id",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 50,
+                    "jsdoctags": [
+                        {
+                            "name": "id",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onPin",
+                    "args": [
+                        {
+                            "name": "id",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 45,
+                    "jsdoctags": [
+                        {
+                            "name": "id",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\n\n\n@Component({\n  selector: 'app-task',\n  template: `\n    <div class=\"list-item\">\n      <input type=\"text\" [value]=\"task.title\"  readonly=\"true\"/>\n    </div>\n  `\n})\n\nexport class TaskComponent {\n  @Input() task: any;\n\n  // tslint:disable-next-line:no-output-on-prefix\n  @Output() onPinTask = new EventEmitter<Event>();\n\n  // tslint:disable-next-line:no-output-on-prefix\n  @Output() onArchivedTask = new EventEmitter<Event>();\n}\n",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\nimport { Task } from '../model/task.model';\n\n\n@Component({\n  selector: 'app-task',\n  template: `\n    <div class=\"list-item {{ task?.state }}\">\n      <label class=\"checkbox\">\n        <input\n          type=\"checkbox\"\n          [defaultChecked]=\"task?.state === 'TASK_ARCHIVED'\"\n          disabled=\"true\"\n          name=\"checked\"\n        />\n        <span class=\"checkbox-custom\" (click)=\"onArchive(task.id)\"></span>\n      </label>\n      <div class=\"title\">\n        <input\n          type=\"text\"\n          [value]=\"task?.title\"\n          readonly=\"true\"\n          placeholder=\"Input title\"\n        />\n      </div>\n      <div class=\"actions\">\n        <a *ngIf=\"task?.state !== 'TASK_ARCHIVED'\" (click)=\"onPin(task.id)\">\n          <span class=\"icon-star\"></span>\n        </a>\n      </div>\n    </div>\n  `\n})\n\nexport class TaskComponent {\n  @Input() task: Task;\n\n  // tslint:disable-next-line:no-output-on-prefix\n  @Output() onPinTask = new EventEmitter<Event>();\n\n  // tslint:disable-next-line:no-output-on-prefix\n  @Output() onArchivedTask = new EventEmitter<Event>();\n\n  // component method to trigger the onPinEen @params() id: string;\n  onPin(id: any) {\n    this.onPinTask.emit(id);\n  }\n\n  // component method to trigger the onArchivedEvent @params() id: string;\n  onArchived(id: any) {\n    this.onArchivedTask.emit(id);\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -351,7 +430,7 @@
                 "name": "actionData",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/components/task.story.ts",
+                "file": "src/app/components/task.stories.ts",
                 "type": "object",
                 "defaultValue": "{\n  onPinTask : 'onPinTask',\n  onArchivedTask: 'onArchiveTask'\n}"
             },
@@ -359,7 +438,7 @@
                 "name": "Archived",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/components/task.story.ts",
+                "file": "src/app/components/task.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -367,7 +446,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/components/task.story.ts",
+                "file": "src/app/components/task.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -439,7 +518,7 @@
                 "name": "Pinned",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/components/task.story.ts",
+                "file": "src/app/components/task.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -495,7 +574,7 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/components/task.story.ts",
+                "file": "src/app/components/task.stories.ts",
                 "type": "Story<TaskComponent>",
                 "defaultValue": "args => ({\n  props: {\n    ...args,\n    onPinTask: actionData.onPinTask,\n    onArchivedTask: actionData.onArchivedTask,\n  },\n})"
             }
@@ -504,12 +583,12 @@
         "typealiases": [],
         "enumerations": [],
         "groupedVariables": {
-            "src/app/components/task.story.ts": [
+            "src/app/components/task.stories.ts": [
                 {
                     "name": "actionData",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/components/task.story.ts",
+                    "file": "src/app/components/task.stories.ts",
                     "type": "object",
                     "defaultValue": "{\n  onPinTask : 'onPinTask',\n  onArchivedTask: 'onArchiveTask'\n}"
                 },
@@ -517,7 +596,7 @@
                     "name": "Archived",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/components/task.story.ts",
+                    "file": "src/app/components/task.stories.ts",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -525,7 +604,7 @@
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/components/task.story.ts",
+                    "file": "src/app/components/task.stories.ts",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -533,7 +612,7 @@
                     "name": "Pinned",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/components/task.story.ts",
+                    "file": "src/app/components/task.stories.ts",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -541,7 +620,7 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/components/task.story.ts",
+                    "file": "src/app/components/task.stories.ts",
                     "type": "Story<TaskComponent>",
                     "defaultValue": "args => ({\n  props: {\n    ...args,\n    onPinTask: actionData.onPinTask,\n    onArchivedTask: actionData.onArchivedTask,\n  },\n})"
                 }
@@ -695,11 +774,11 @@
                 "linktype": "component",
                 "name": "TaskComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
-                "filePath": "src/app/components/task.story.ts",
+                "filePath": "src/app/components/task.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -709,7 +788,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/components/task.story.ts",
+                "filePath": "src/app/components/task.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -719,7 +798,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/components/task.story.ts",
+                "filePath": "src/app/components/task.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -729,7 +808,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/components/task.story.ts",
+                "filePath": "src/app/components/task.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -739,13 +818,22 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/components/task.story.ts",
+                "filePath": "src/app/components/task.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/model/task.model.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Task",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
